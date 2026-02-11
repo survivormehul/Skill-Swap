@@ -1,0 +1,40 @@
+{
+  "placeholderImages": [
+    {
+      "id": "user1",
+      "description": "User 1 avatar",
+      "imageUrl": "https://picsum.photos/seed/1/100/100",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user2",
+      "description": "User 2 avatar",
+      "imageUrl": "https://picsum.photos/seed/2/100/100",
+      "imageHint": "person smiling"
+    },
+    {
+      "id": "user3",
+      "description": "User 3 avatar",
+      "imageUrl": "https://picsum.photos/seed/3/100/100",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "user4",
+      "description": "User 4 avatar",
+      "imageUrl": "https://picsum.photos/seed/4/100/100",
+      "imageHint": "man smiling"
+    },
+    {
+      "id": "user5",
+      "description": "User 5 avatar",
+      "imageUrl": "https://picsum.photos/seed/5/100/100",
+      "imageHint": "person glasses"
+    },
+    {
+      "id": "logo",
+      "description": "Skill Hub Logo",
+      "imageUrl": "https://picsum.photos/seed/logo/100/100",
+      "imageHint": "brain gears"
+    }
+  ]
+}

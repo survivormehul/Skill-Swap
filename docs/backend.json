@@ -1,0 +1,291 @@
+
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user in the system.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the user, matching their Firebase Auth UID."
+        },
+        "fullName": {
+          "type": "string",
+          "description": "The user's full name."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address.",
+          "format": "email"
+        },
+        "location": {
+            "type": "string",
+            "description": "The user's location."
+        },
+        "bio": {
+            "type": "string",
+            "description": "A short biography of the user."
+        },
+        "sessions": {
+            "type": "number",
+            "description": "The total number of sessions the user has participated in."
+        },
+        "teachingCount": {
+            "type": "number",
+            "description": "The number of skills the user is teaching."
+        },
+        "learningCount": {
+            "type": "number",
+            "description": "The number of skills the user is learning."
+        },
+        "achievements": {
+            "type": "object",
+            "properties": {
+                "firstSkillAdded": {
+                    "type": "boolean"
+                },
+                "activeLearner": {
+                    "type": "boolean"
+                },
+                "fiveStarTeacher": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "connections": {
+          "type": "array",
+          "description": "An array of user IDs that this user has connected with.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "fullName",
+        "email"
+      ]
+    },
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Stores the public-facing profile information for a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for this profile, typically 'main'."
+        },
+        "bio": {
+          "type": "string",
+          "description": "A short biography or introduction for the user."
+        },
+        "skillsToShare": {
+          "type": "array",
+          "description": "A list of skills the user is proficient in and willing to teach.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skillsToLearn": {
+          "type": "array",
+          "description": "A list of skills the user wants to learn from others.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "interestIds": {
+          "type": "array",
+          "description": "A list of IDs referencing the Interest collection, representing the user's hobbies and interests.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "Interest": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Interest",
+      "type": "object",
+      "description": "Represents a single interest or hobby that users can have.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the interest (e.g., 'photography', 'hiking')."
+        },
+        "name": {
+          "type": "string",
+          "description": "The display name of the interest (e.g., 'Photography', 'Hiking')."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "LearningMaterial": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "LearningMaterial",
+      "type": "object",
+      "description": "Represents a single piece of learning material uploaded by a teacher.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the learning material."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the material."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the material."
+        },
+        "skill": {
+          "type": "string",
+          "description": "The skill this material is related to."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["pdf", "text", "link"],
+          "description": "The type of the material."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL to access the material (e.g., YouTube link or Firebase Storage URL)."
+        },
+        "fileData": {
+            "type": "string",
+            "description": "Base64 encoded string of the file data for PDF uploads."
+        },
+        "uploadedBy": {
+          "type": "string",
+          "description": "The UID of the user who uploaded the material."
+        },
+        "uploadedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the material was uploaded."
+        }
+      },
+      "required": ["id", "title", "skill", "type", "uploadedBy", "uploadedAt"]
+    },
+    "MaterialCompletion": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "MaterialCompletion",
+      "type": "object",
+      "description": "Tracks the completion status of a learning material for a specific user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the completion record, often the materialId."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["completed", "not_completed"],
+          "description": "The completion status."
+        }
+      },
+      "required": ["id", "status"]
+    },
+    "Chat": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Chat",
+      "type": "object",
+      "description": "Represents a single chat conversation between two or more users.",
+      "properties": {
+        "id": { "type": "string" },
+        "participants": { "type": "array", "items": { "type": "string" } },
+        "participantDetails": { "type": "object" },
+        "lastMessage": { "type": "string" },
+        "lastMessageTimestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "participants"]
+    },
+    "Message": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Message",
+      "type": "object",
+      "description": "Represents a single message within a chat.",
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string" },
+        "senderId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "text", "senderId", "timestamp"]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores private user information, linking to their authentication UID. Only the authenticated user can read or write to their own document."
+        }
+      },
+      {
+        "path": "/users/{userId}/profile/{profileId}",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores the user's public profile. Any authenticated user can read it, but only the owner can write."
+        }
+      },
+      {
+        "path": "/interests/{interestId}",
+        "definition": {
+          "entityName": "Interest",
+          "schema": {
+            "$ref": "#/backend/entities/Interest"
+          },
+          "description": "A collection of all available interests. This collection is publicly readable by all authenticated users."
+        }
+      },
+       {
+        "path": "/materials/{materialId}",
+        "definition": {
+          "entityName": "LearningMaterial",
+          "schema": {
+            "$ref": "#/backend/entities/LearningMaterial"
+          },
+          "description": "Stores learning materials for different skills. Access is controlled by security rules based on user matches."
+        }
+      },
+      {
+        "path": "/chats/{chatId}",
+        "definition": {
+          "entityName": "Chat",
+          "schema": { "$ref": "#/backend/entities/Chat" },
+          "description": "Contains metadata about a chat conversation. Access is restricted to participants."
+        }
+      },
+      {
+        "path": "/chats/{chatId}/messages/{messageId}",
+        "definition": {
+          "entityName": "Message",
+          "schema": { "$ref": "#/backend/entities/Message" },
+          "description": "Contains individual messages within a chat. Access is restricted to participants of the parent chat."
+        }
+      }
+    ],
+    "reasoning": "The data model is designed for security and scalability. The top-level 'users' collection stores private user data, with security rules ensuring that only the authenticated user can access their own document. Public-facing profile information is nested in a 'profile' subcollection, allowing for more granular control and separation of data. A top-level 'interests' collection is used for discoverability and is publicly readable. The 'materials' collection stores learning content, with access restricted by security rules based on skill matches between users. The 'chats' collection manages messaging, with rules ensuring only participants can access conversation content. This structure follows Firestore best practices by separating public and private data and using user IDs as document keys for intuitive and secure access control."
+  }
+}
